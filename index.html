@@ -15,5 +15,28 @@
   <input type="submit" value="Submit">
 </form> 
 
+<button onclick="sendGetRequest()">See Data</button>
+<button onclick="sendDeleteRequest()">Delete Last Entry</button>
+
+<script>
+    function sendGetRequest() {
+        window.location.href = 'php_cgi.php';
+    }
+    
+    function sendDeleteRequest() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', 'php_cgi.php', true);
+        xhr.onload = function () {
+            if (xhr.readyState == 4 && xhr.status == '200') {
+                console.log('Delete request sent');
+                sendGetRequest(); // Refresh the page with GET request after DELETE
+            } else {
+                console.error('Error sending DELETE request');
+            }
+        }
+        xhr.send(null);
+    }
+</script>
+
 </body>
 </html>
